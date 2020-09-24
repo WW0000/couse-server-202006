@@ -1,12 +1,14 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.domain.ContentInfo;
+import com.mycompany.myapp.domain.ContentType;
 import com.mycompany.myapp.service.ContentInfoService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -122,4 +124,5 @@ public class ContentInfoResource {
         contentInfoService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
 }

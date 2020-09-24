@@ -7,6 +7,7 @@ import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -121,5 +122,12 @@ public class ContentTypeResource {
         log.debug("REST request to delete ContentType : {}", id);
         contentTypeService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+    @ApiOperation(value = "获取全部分类")
+    @GetMapping("/content-types/all")
+    public ResponseEntity getAllType(){
+        //返回所有分类
+        List<ContentType> result=this.contentTypeService.getAllType();
+        return ResponseEntity.ok(result);
     }
 }

@@ -1,5 +1,6 @@
 package com.mycompany.myapp.service.impl;
 
+import com.mycompany.myapp.domain.ContentType;
 import com.mycompany.myapp.service.ContentInfoService;
 import com.mycompany.myapp.domain.ContentInfo;
 import com.mycompany.myapp.repository.ContentInfoRepository;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -54,4 +56,6 @@ public class ContentInfoServiceImpl implements ContentInfoService {
         log.debug("Request to delete ContentInfo : {}", id);
         contentInfoRepository.deleteById(id);
     }
+
+
 }

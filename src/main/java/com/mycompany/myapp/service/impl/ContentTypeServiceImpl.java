@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -53,5 +54,9 @@ public class ContentTypeServiceImpl implements ContentTypeService {
     public void delete(Long id) {
         log.debug("Request to delete ContentType : {}", id);
         contentTypeRepository.deleteById(id);
+    }
+    @Override
+    public List<ContentType> getAllType(){
+        return this.contentTypeRepository.findByOrderByContentTypeSort();
     }
 }
