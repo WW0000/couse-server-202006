@@ -1,0 +1,40 @@
+{
+  "name": "UserShare",
+  "fields": [
+    {
+      "fieldName": "shareTime",
+      "fieldType": "ZonedDateTime",
+      "javadoc": "分享时间"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "userAccount",
+      "otherEntityRelationshipName": "userShare",
+      "javadoc": "用户分享",
+      "relationshipName": "account",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "contentInfo",
+      "otherEntityRelationshipName": "userShare",
+      "javadoc": "用户分享",
+      "relationshipName": "content",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200922025833",
+  "javadoc": "用户分享",
+  "entityTableName": "user_share",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

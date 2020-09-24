@@ -1,0 +1,35 @@
+{
+  "course1802753139App": {
+    "userContentComment": {
+      "home": {
+        "title": "User Content Comments",
+        "createLabel": "创建新 User Content Comment",
+        "createOrEditLabel": "创建或编辑 User Content Comment",
+        "notFound": "No User Content Comments found"
+      },
+      "created": "User Content Comment {{ param }} 创建成功",
+      "updated": "User Content Comment {{ param }} 更新成功",
+      "deleted": "User Content Comment {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 User Content Comment {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "User Content Comment"
+      },
+      "commentPid": "Comment Pid",
+      "commentTime": "Comment Time",
+      "commentContent": "Comment Content",
+      "clientType": "Client Type",
+      "praiseCount": "Praise Count",
+      "account": "Account",
+      "content": "Content",
+      "help": {
+        "commentPid": "父级评论",
+        "commentTime": "评论时间",
+        "commentContent": "评论内容",
+        "clientType": "客户端类型",
+        "praiseCount": "获赞总数"
+      }
+    }
+  }
+}

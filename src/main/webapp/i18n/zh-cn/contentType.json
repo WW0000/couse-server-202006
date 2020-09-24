@@ -1,0 +1,31 @@
+{
+  "course1802753139App": {
+    "contentType": {
+      "home": {
+        "title": "Content Types",
+        "createLabel": "创建新 Content Type",
+        "createOrEditLabel": "创建或编辑 Content Type",
+        "notFound": "No Content Types found"
+      },
+      "created": "Content Type {{ param }} 创建成功",
+      "updated": "Content Type {{ param }} 更新成功",
+      "deleted": "Content Type {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 Content Type {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "Content Type"
+      },
+      "contentTypeName": "Content Type Name",
+      "contentTypeSort": "Content Type Sort",
+      "contentTypeTime": "Content Type Time",
+      "contentTypeUpdateCount": "Content Type Update Count",
+      "help": {
+        "contentTypeName": "分类名称",
+        "contentTypeSort": "分类排序",
+        "contentTypeTime": "创建时间",
+        "contentTypeUpdateCount": "近期更新数量"
+      }
+    }
+  }
+}

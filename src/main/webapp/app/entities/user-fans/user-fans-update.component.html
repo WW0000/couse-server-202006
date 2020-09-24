@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-user-fans-heading" jhiTranslate="course1802753139App.userFans.home.createOrEditLabel">Create or edit a User Fans</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.userFans.fansTime" for="field_fansTime" [ngbTooltip]="'course1802753139App.userFans.help.fansTime' | translate">Fans Time</label>
+                    <div class="d-flex">
+                        <input id="field_fansTime" type="datetime-local" class="form-control" name="fansTime" formControlName="fansTime" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.userFans.fansFrom" for="field_fansFrom">Fans From</label>
+                    <select class="form-control" id="field_fansFrom" name="fansFrom" formControlName="fansFrom">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userAccountOption.id === editForm.get('fansFrom')!.value?.id ? editForm.get('fansFrom')!.value : userAccountOption" *ngFor="let userAccountOption of useraccounts; trackBy: trackById">{{ userAccountOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.userFans.fansTo" for="field_fansTo">Fans To</label>
+                    <select class="form-control" id="field_fansTo" name="fansTo" formControlName="fansTo">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userAccountOption.id === editForm.get('fansTo')!.value?.id ? editForm.get('fansTo')!.value : userAccountOption" *ngFor="let userAccountOption of useraccounts; trackBy: trackById">{{ userAccountOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

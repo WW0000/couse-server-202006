@@ -1,0 +1,27 @@
+{
+  "course1802753139App": {
+    "userFavorateItem": {
+      "home": {
+        "title": "User Favorate Items",
+        "createLabel": "创建新 User Favorate Item",
+        "createOrEditLabel": "创建或编辑 User Favorate Item",
+        "notFound": "No User Favorate Items found"
+      },
+      "created": "User Favorate Item {{ param }} 创建成功",
+      "updated": "User Favorate Item {{ param }} 更新成功",
+      "deleted": "User Favorate Item {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 User Favorate Item {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "User Favorate Item"
+      },
+      "favorateTime": "Favorate Time",
+      "account": "Account",
+      "content": "Content",
+      "help": {
+        "favorateTime": "收藏时间"
+      }
+    }
+  }
+}

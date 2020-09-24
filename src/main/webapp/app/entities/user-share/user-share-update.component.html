@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-user-share-heading" jhiTranslate="course1802753139App.userShare.home.createOrEditLabel">Create or edit a User Share</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.userShare.shareTime" for="field_shareTime" [ngbTooltip]="'course1802753139App.userShare.help.shareTime' | translate">Share Time</label>
+                    <div class="d-flex">
+                        <input id="field_shareTime" type="datetime-local" class="form-control" name="shareTime" formControlName="shareTime" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.userShare.account" for="field_account">Account</label>
+                    <select class="form-control" id="field_account" name="account" formControlName="account">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userAccountOption.id === editForm.get('account')!.value?.id ? editForm.get('account')!.value : userAccountOption" *ngFor="let userAccountOption of useraccounts; trackBy: trackById">{{ userAccountOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.userShare.content" for="field_content">Content</label>
+                    <select class="form-control" id="field_content" name="content" formControlName="content">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="contentInfoOption.id === editForm.get('content')!.value?.id ? editForm.get('content')!.value : contentInfoOption" *ngFor="let contentInfoOption of contentinfos; trackBy: trackById">{{ contentInfoOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

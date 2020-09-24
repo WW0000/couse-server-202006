@@ -1,0 +1,42 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="userFans">
+            <h2><span jhiTranslate="course1802753139App.userFans.detail.title">User Fans</span> {{ userFans.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="course1802753139App.userFans.fansTime" [ngbTooltip]="'course1802753139App.userFans.help.fansTime' | translate">Fans Time</span></dt>
+                <dd>
+                    <span>{{ userFans.fansTime }}</span>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.userFans.fansFrom">Fans From</span></dt>
+                <dd>
+                    <div *ngIf="userFans.fansFrom">
+                        <a [routerLink]="['/user-account', userFans.fansFrom?.id, 'view']">{{ userFans.fansFrom?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.userFans.fansTo">Fans To</span></dt>
+                <dd>
+                    <div *ngIf="userFans.fansTo">
+                        <a [routerLink]="['/user-account', userFans.fansTo?.id, 'view']">{{ userFans.fansTo?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/user-fans', userFans.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

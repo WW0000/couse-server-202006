@@ -1,0 +1,83 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="course1802753139App.userShare.home.title">User Shares</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-user-share" [routerLink]="['/user-share/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="course1802753139App.userShare.home.createLabel">
+            Create a new User Share
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="userShares?.length === 0">
+        <span jhiTranslate="course1802753139App.userShare.home.notFound">No userShares found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="userShares && userShares.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="shareTime"><span jhiTranslate="course1802753139App.userShare.shareTime">Share Time</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="account.id"><span jhiTranslate="course1802753139App.userShare.account">Account</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="content.id"><span jhiTranslate="course1802753139App.userShare.content">Content</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let userShare of userShares ;trackBy: trackId">
+                    <td><a [routerLink]="['/user-share', userShare.id, 'view']">{{ userShare.id }}</a></td>
+                    <td>{{ userShare.shareTime | date:'medium' }}</td>
+                    <td>
+                        <div *ngIf="userShare.account">
+                            <a [routerLink]="['/user-account', userShare.account?.id, 'view']" >{{ userShare.account?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="userShare.content">
+                            <a [routerLink]="['/content-info', userShare.content?.id, 'view']" >{{ userShare.content?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/user-share', userShare.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/user-share', userShare.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(userShare)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="userShares && userShares.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

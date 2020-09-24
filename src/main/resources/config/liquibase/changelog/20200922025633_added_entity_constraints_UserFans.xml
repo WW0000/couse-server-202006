@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity UserFans.
+    -->
+    <changeSet id="20200922025633-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="fans_from_id"
+                                 baseTableName="user_fans"
+                                 constraintName="fk_user_fans_fans_from_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_account"/>
+
+        <addForeignKeyConstraint baseColumnNames="fans_to_id"
+                                 baseTableName="user_fans"
+                                 constraintName="fk_user_fans_fans_to_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_account"/>
+
+    </changeSet>
+</databaseChangeLog>

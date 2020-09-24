@@ -1,0 +1,27 @@
+{
+  "course1802753139App": {
+    "userFans": {
+      "home": {
+        "title": "User Fans",
+        "createLabel": "创建新 User Fans",
+        "createOrEditLabel": "创建或编辑 User Fans",
+        "notFound": "No User Fans found"
+      },
+      "created": "User Fans {{ param }} 创建成功",
+      "updated": "User Fans {{ param }} 更新成功",
+      "deleted": "User Fans {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 User Fans {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "User Fans"
+      },
+      "fansTime": "Fans Time",
+      "fansFrom": "Fans From",
+      "fansTo": "Fans To",
+      "help": {
+        "fansTime": "关注时间"
+      }
+    }
+  }
+}

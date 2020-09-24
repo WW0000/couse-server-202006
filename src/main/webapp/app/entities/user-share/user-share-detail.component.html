@@ -1,0 +1,42 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="userShare">
+            <h2><span jhiTranslate="course1802753139App.userShare.detail.title">User Share</span> {{ userShare.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="course1802753139App.userShare.shareTime" [ngbTooltip]="'course1802753139App.userShare.help.shareTime' | translate">Share Time</span></dt>
+                <dd>
+                    <span>{{ userShare.shareTime }}</span>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.userShare.account">Account</span></dt>
+                <dd>
+                    <div *ngIf="userShare.account">
+                        <a [routerLink]="['/user-account', userShare.account?.id, 'view']">{{ userShare.account?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.userShare.content">Content</span></dt>
+                <dd>
+                    <div *ngIf="userShare.content">
+                        <a [routerLink]="['/content-info', userShare.content?.id, 'view']">{{ userShare.content?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/user-share', userShare.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

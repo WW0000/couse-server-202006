@@ -1,0 +1,117 @@
+/**账户信息*/
+entity UserAccount{
+    /**头像*/
+    head String,
+    /**昵称*/
+    nickName String,
+    /**生日*/
+    birthday String,
+    /**登录名*/
+    login String,
+    /**简介*/
+    introduction String
+}
+
+/**用户收藏*/
+entity UserFavorateItem{
+    /**收藏时间*/
+    favorateTime ZonedDateTime
+}
+
+/**用户评论*/
+entity UserContentComment{
+	/**父级评论*/
+    commentPid Long,
+    /**评论时间*/
+    commentTime ZonedDateTime,
+    /**评论内容*/
+    commentContent String,
+    /**客户端类型*/
+    clientType String,
+    /**获赞总数*/
+    praiseCount Long
+}
+
+/**用户关注*/
+entity UserFans{
+    /**关注时间*/
+    fansTime ZonedDateTime
+}
+
+/**用户点赞*/
+entity UserContentPraise{
+    /**点赞时间*/
+    praiseTime ZonedDateTime
+}
+
+/**用户分享*/
+entity UserShare{
+    /**分享时间*/
+    shareTime ZonedDateTime
+}
+
+/**内容（视频文章）*/
+entity ContentInfo{
+    /**发布者*/
+    contentActor String,
+	/**内容信息*/
+    contentInfo String,
+    /**内容图片*/
+    contentImg String,
+    /**发布时间*/
+    contentTime ZonedDateTime,
+    /**点赞次数*/
+    contentPraiseCount Long,
+    /**收藏总数*/
+    contentFavorateCount Long,
+	/**评论数*/
+    contentCommentCount Long,
+    /**图片标签*/
+    contentImgLabel String
+}
+
+/**内容分类*/
+entity ContentType{
+    /**分类名称*/
+    contentTypeName String,
+    /**分类排序*/
+    contentTypeSort Integer,
+    /**创建时间*/
+    contentTypeTime ZonedDateTime,
+    /**近期更新数量*/
+    contentTypeUpdateCount Long
+}
+
+/**外键*/
+relationship ManyToOne{
+    /**收藏——用户*/
+    UserFavorateItem{account} to UserAccount,
+    /**用户评论*/
+    UserContentComment{account} to UserAccount,
+    /**用户关注*/
+    UserFans{fansFrom} to UserAccount,
+    UserFans{fansTo} to UserAccount,
+    /**用户点赞*/
+    UserContentPraise{account} to UserAccount,
+    /**用户分享*/
+    UserShare{account} to UserAccount,
+    /**内容（视频文章）*/
+    ContentInfo{account} to UserAccount,
+
+    /**内容（视频文章）——分类*/
+    ContentInfo{contentType} to ContentType,
+
+    /**收藏——内容（视频文章）*/
+    UserFavorateItem{content} to ContentInfo,
+    /**用户评论*/
+    UserContentComment{content} to ContentInfo,
+    /**用户点赞*/
+    UserContentPraise{content} to ContentInfo,
+    /**用户分享*/
+    UserShare{content} to ContentInfo
+}
+
+/**对象以分页形式获取*/
+paginate all with pagination
+/**封装*/
+service all with serviceImpl

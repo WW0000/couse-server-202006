@@ -1,0 +1,91 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="course1802753139App.userContentComment.home.title">User Content Comments</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-user-content-comment" [routerLink]="['/user-content-comment/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="course1802753139App.userContentComment.home.createLabel">
+            Create a new User Content Comment
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="userContentComments?.length === 0">
+        <span jhiTranslate="course1802753139App.userContentComment.home.notFound">No userContentComments found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="userContentComments && userContentComments.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="commentPid"><span jhiTranslate="course1802753139App.userContentComment.commentPid">Comment Pid</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="commentTime"><span jhiTranslate="course1802753139App.userContentComment.commentTime">Comment Time</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="commentContent"><span jhiTranslate="course1802753139App.userContentComment.commentContent">Comment Content</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="clientType"><span jhiTranslate="course1802753139App.userContentComment.clientType">Client Type</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="praiseCount"><span jhiTranslate="course1802753139App.userContentComment.praiseCount">Praise Count</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="account.id"><span jhiTranslate="course1802753139App.userContentComment.account">Account</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="content.id"><span jhiTranslate="course1802753139App.userContentComment.content">Content</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let userContentComment of userContentComments ;trackBy: trackId">
+                    <td><a [routerLink]="['/user-content-comment', userContentComment.id, 'view']">{{ userContentComment.id }}</a></td>
+                    <td>{{ userContentComment.commentPid }}</td>
+                    <td>{{ userContentComment.commentTime | date:'medium' }}</td>
+                    <td>{{ userContentComment.commentContent }}</td>
+                    <td>{{ userContentComment.clientType }}</td>
+                    <td>{{ userContentComment.praiseCount }}</td>
+                    <td>
+                        <div *ngIf="userContentComment.account">
+                            <a [routerLink]="['/user-account', userContentComment.account?.id, 'view']" >{{ userContentComment.account?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="userContentComment.content">
+                            <a [routerLink]="['/content-info', userContentComment.content?.id, 'view']" >{{ userContentComment.content?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/user-content-comment', userContentComment.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/user-content-comment', userContentComment.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(userContentComment)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="userContentComments && userContentComments.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

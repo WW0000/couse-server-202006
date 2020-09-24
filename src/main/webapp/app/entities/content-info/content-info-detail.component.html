@@ -1,0 +1,70 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="contentInfo">
+            <h2><span jhiTranslate="course1802753139App.contentInfo.detail.title">Content Info</span> {{ contentInfo.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="course1802753139App.contentInfo.contentActor" [ngbTooltip]="'course1802753139App.contentInfo.help.contentActor' | translate">Content Actor</span></dt>
+                <dd>
+                    <span>{{ contentInfo.contentActor }}</span>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.contentInfo.contentInfo" [ngbTooltip]="'course1802753139App.contentInfo.help.contentInfo' | translate">Content Info</span></dt>
+                <dd>
+                    <span>{{ contentInfo.contentInfo }}</span>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.contentInfo.contentImg" [ngbTooltip]="'course1802753139App.contentInfo.help.contentImg' | translate">Content Img</span></dt>
+                <dd>
+                    <span>{{ contentInfo.contentImg }}</span>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.contentInfo.contentTime" [ngbTooltip]="'course1802753139App.contentInfo.help.contentTime' | translate">Content Time</span></dt>
+                <dd>
+                    <span>{{ contentInfo.contentTime }}</span>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.contentInfo.contentPraiseCount" [ngbTooltip]="'course1802753139App.contentInfo.help.contentPraiseCount' | translate">Content Praise Count</span></dt>
+                <dd>
+                    <span>{{ contentInfo.contentPraiseCount }}</span>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.contentInfo.contentFavorateCount" [ngbTooltip]="'course1802753139App.contentInfo.help.contentFavorateCount' | translate">Content Favorate Count</span></dt>
+                <dd>
+                    <span>{{ contentInfo.contentFavorateCount }}</span>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.contentInfo.contentCommentCount" [ngbTooltip]="'course1802753139App.contentInfo.help.contentCommentCount' | translate">Content Comment Count</span></dt>
+                <dd>
+                    <span>{{ contentInfo.contentCommentCount }}</span>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.contentInfo.contentImgLabel" [ngbTooltip]="'course1802753139App.contentInfo.help.contentImgLabel' | translate">Content Img Label</span></dt>
+                <dd>
+                    <span>{{ contentInfo.contentImgLabel }}</span>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.contentInfo.account">Account</span></dt>
+                <dd>
+                    <div *ngIf="contentInfo.account">
+                        <a [routerLink]="['/user-account', contentInfo.account?.id, 'view']">{{ contentInfo.account?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.contentInfo.contentType">Content Type</span></dt>
+                <dd>
+                    <div *ngIf="contentInfo.contentType">
+                        <a [routerLink]="['/content-type', contentInfo.contentType?.id, 'view']">{{ contentInfo.contentType?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/content-info', contentInfo.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+{
+  "name": "ContentInfo",
+  "fields": [
+    {
+      "fieldName": "contentActor",
+      "fieldType": "String",
+      "javadoc": "发布者"
+    },
+    {
+      "fieldName": "contentInfo",
+      "fieldType": "String",
+      "javadoc": "内容信息"
+    },
+    {
+      "fieldName": "contentImg",
+      "fieldType": "String",
+      "javadoc": "内容图片"
+    },
+    {
+      "fieldName": "contentTime",
+      "fieldType": "ZonedDateTime",
+      "javadoc": "发布时间"
+    },
+    {
+      "fieldName": "contentPraiseCount",
+      "fieldType": "Long",
+      "javadoc": "点赞次数"
+    },
+    {
+      "fieldName": "contentFavorateCount",
+      "fieldType": "Long",
+      "javadoc": "收藏总数"
+    },
+    {
+      "fieldName": "contentCommentCount",
+      "fieldType": "Long",
+      "javadoc": "评论数"
+    },
+    {
+      "fieldName": "contentImgLabel",
+      "fieldType": "String",
+      "javadoc": "图片标签"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "userAccount",
+      "otherEntityRelationshipName": "contentInfo",
+      "javadoc": "内容（视频文章）",
+      "relationshipName": "account",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "contentType",
+      "otherEntityRelationshipName": "contentInfo",
+      "javadoc": "内容（视频文章）——分类",
+      "relationshipName": "contentType",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200922025933",
+  "javadoc": "内容（视频文章）",
+  "entityTableName": "content_info",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

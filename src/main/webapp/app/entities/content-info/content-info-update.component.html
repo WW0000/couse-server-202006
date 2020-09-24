@@ -1,0 +1,91 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-content-info-heading" jhiTranslate="course1802753139App.contentInfo.home.createOrEditLabel">Create or edit a Content Info</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.contentInfo.contentActor" for="field_contentActor" [ngbTooltip]="'course1802753139App.contentInfo.help.contentActor' | translate">Content Actor</label>
+                    <input type="text" class="form-control" name="contentActor" id="field_contentActor"
+                           formControlName="contentActor"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.contentInfo.contentInfo" for="field_contentInfo" [ngbTooltip]="'course1802753139App.contentInfo.help.contentInfo' | translate">Content Info</label>
+                    <input type="text" class="form-control" name="contentInfo" id="field_contentInfo"
+                           formControlName="contentInfo"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.contentInfo.contentImg" for="field_contentImg" [ngbTooltip]="'course1802753139App.contentInfo.help.contentImg' | translate">Content Img</label>
+                    <input type="text" class="form-control" name="contentImg" id="field_contentImg"
+                           formControlName="contentImg"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.contentInfo.contentTime" for="field_contentTime" [ngbTooltip]="'course1802753139App.contentInfo.help.contentTime' | translate">Content Time</label>
+                    <div class="d-flex">
+                        <input id="field_contentTime" type="datetime-local" class="form-control" name="contentTime" formControlName="contentTime" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.contentInfo.contentPraiseCount" for="field_contentPraiseCount" [ngbTooltip]="'course1802753139App.contentInfo.help.contentPraiseCount' | translate">Content Praise Count</label>
+                    <input type="number" class="form-control" name="contentPraiseCount" id="field_contentPraiseCount"
+                           formControlName="contentPraiseCount"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.contentInfo.contentFavorateCount" for="field_contentFavorateCount" [ngbTooltip]="'course1802753139App.contentInfo.help.contentFavorateCount' | translate">Content Favorate Count</label>
+                    <input type="number" class="form-control" name="contentFavorateCount" id="field_contentFavorateCount"
+                           formControlName="contentFavorateCount"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.contentInfo.contentCommentCount" for="field_contentCommentCount" [ngbTooltip]="'course1802753139App.contentInfo.help.contentCommentCount' | translate">Content Comment Count</label>
+                    <input type="number" class="form-control" name="contentCommentCount" id="field_contentCommentCount"
+                           formControlName="contentCommentCount"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.contentInfo.contentImgLabel" for="field_contentImgLabel" [ngbTooltip]="'course1802753139App.contentInfo.help.contentImgLabel' | translate">Content Img Label</label>
+                    <input type="text" class="form-control" name="contentImgLabel" id="field_contentImgLabel"
+                           formControlName="contentImgLabel"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.contentInfo.account" for="field_account">Account</label>
+                    <select class="form-control" id="field_account" name="account" formControlName="account">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userAccountOption.id === editForm.get('account')!.value?.id ? editForm.get('account')!.value : userAccountOption" *ngFor="let userAccountOption of useraccounts; trackBy: trackById">{{ userAccountOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.contentInfo.contentType" for="field_contentType">Content Type</label>
+                    <select class="form-control" id="field_contentType" name="contentType" formControlName="contentType">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="contentTypeOption.id === editForm.get('contentType')!.value?.id ? editForm.get('contentType')!.value : contentTypeOption" *ngFor="let contentTypeOption of contenttypes; trackBy: trackById">{{ contentTypeOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

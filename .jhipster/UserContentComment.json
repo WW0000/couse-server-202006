@@ -1,0 +1,60 @@
+{
+  "name": "UserContentComment",
+  "fields": [
+    {
+      "fieldName": "commentPid",
+      "fieldType": "Long",
+      "javadoc": "父级评论"
+    },
+    {
+      "fieldName": "commentTime",
+      "fieldType": "ZonedDateTime",
+      "javadoc": "评论时间"
+    },
+    {
+      "fieldName": "commentContent",
+      "fieldType": "String",
+      "javadoc": "评论内容"
+    },
+    {
+      "fieldName": "clientType",
+      "fieldType": "String",
+      "javadoc": "客户端类型"
+    },
+    {
+      "fieldName": "praiseCount",
+      "fieldType": "Long",
+      "javadoc": "获赞总数"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "userAccount",
+      "otherEntityRelationshipName": "userContentComment",
+      "javadoc": "用户评论",
+      "relationshipName": "account",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "contentInfo",
+      "otherEntityRelationshipName": "userContentComment",
+      "javadoc": "用户评论",
+      "relationshipName": "content",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200922025533",
+  "javadoc": "用户评论",
+  "entityTableName": "user_content_comment",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

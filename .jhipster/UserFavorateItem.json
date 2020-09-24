@@ -1,0 +1,40 @@
+{
+  "name": "UserFavorateItem",
+  "fields": [
+    {
+      "fieldName": "favorateTime",
+      "fieldType": "ZonedDateTime",
+      "javadoc": "收藏时间"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "userAccount",
+      "otherEntityRelationshipName": "userFavorateItem",
+      "javadoc": "收藏——用户",
+      "relationshipName": "account",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "contentInfo",
+      "otherEntityRelationshipName": "userFavorateItem",
+      "javadoc": "收藏——内容（视频文章）",
+      "relationshipName": "content",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200922025433",
+  "javadoc": "用户收藏",
+  "entityTableName": "user_favorate_item",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

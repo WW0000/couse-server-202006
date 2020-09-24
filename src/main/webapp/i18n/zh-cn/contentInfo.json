@@ -1,0 +1,41 @@
+{
+  "course1802753139App": {
+    "contentInfo": {
+      "home": {
+        "title": "Content Infos",
+        "createLabel": "创建新 Content Info",
+        "createOrEditLabel": "创建或编辑 Content Info",
+        "notFound": "No Content Infos found"
+      },
+      "created": "Content Info {{ param }} 创建成功",
+      "updated": "Content Info {{ param }} 更新成功",
+      "deleted": "Content Info {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 Content Info {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "Content Info"
+      },
+      "contentActor": "Content Actor",
+      "contentInfo": "Content Info",
+      "contentImg": "Content Img",
+      "contentTime": "Content Time",
+      "contentPraiseCount": "Content Praise Count",
+      "contentFavorateCount": "Content Favorate Count",
+      "contentCommentCount": "Content Comment Count",
+      "contentImgLabel": "Content Img Label",
+      "account": "Account",
+      "contentType": "Content Type",
+      "help": {
+        "contentActor": "发布者",
+        "contentInfo": "内容信息",
+        "contentImg": "内容图片",
+        "contentTime": "发布时间",
+        "contentPraiseCount": "点赞次数",
+        "contentFavorateCount": "收藏总数",
+        "contentCommentCount": "评论数",
+        "contentImgLabel": "图片标签"
+      }
+    }
+  }
+}

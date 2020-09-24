@@ -1,0 +1,39 @@
+{
+  "name": "UserFans",
+  "fields": [
+    {
+      "fieldName": "fansTime",
+      "fieldType": "ZonedDateTime",
+      "javadoc": "关注时间"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "userAccount",
+      "otherEntityRelationshipName": "userFans",
+      "javadoc": "用户关注",
+      "relationshipName": "fansFrom",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "userAccount",
+      "otherEntityRelationshipName": "userFans",
+      "relationshipName": "fansTo",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200922025633",
+  "javadoc": "用户关注",
+  "entityTableName": "user_fans",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

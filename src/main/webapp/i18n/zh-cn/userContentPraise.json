@@ -1,0 +1,27 @@
+{
+  "course1802753139App": {
+    "userContentPraise": {
+      "home": {
+        "title": "User Content Praises",
+        "createLabel": "创建新 User Content Praise",
+        "createOrEditLabel": "创建或编辑 User Content Praise",
+        "notFound": "No User Content Praises found"
+      },
+      "created": "User Content Praise {{ param }} 创建成功",
+      "updated": "User Content Praise {{ param }} 更新成功",
+      "deleted": "User Content Praise {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 User Content Praise {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "User Content Praise"
+      },
+      "praiseTime": "Praise Time",
+      "account": "Account",
+      "content": "Content",
+      "help": {
+        "praiseTime": "点赞时间"
+      }
+    }
+  }
+}

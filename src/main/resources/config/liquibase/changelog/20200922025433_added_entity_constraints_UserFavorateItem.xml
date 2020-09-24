@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity UserFavorateItem.
+    -->
+    <changeSet id="20200922025433-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="account_id"
+                                 baseTableName="user_favorate_item"
+                                 constraintName="fk_user_favorate_item_account_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_account"/>
+
+        <addForeignKeyConstraint baseColumnNames="content_id"
+                                 baseTableName="user_favorate_item"
+                                 constraintName="fk_user_favorate_item_content_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="content_info"/>
+
+    </changeSet>
+</databaseChangeLog>

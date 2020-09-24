@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="userAccount">
+            <h2><span jhiTranslate="course1802753139App.userAccount.detail.title">User Account</span> {{ userAccount.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="course1802753139App.userAccount.head" [ngbTooltip]="'course1802753139App.userAccount.help.head' | translate">Head</span></dt>
+                <dd>
+                    <span>{{ userAccount.head }}</span>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.userAccount.nickName" [ngbTooltip]="'course1802753139App.userAccount.help.nickName' | translate">Nick Name</span></dt>
+                <dd>
+                    <span>{{ userAccount.nickName }}</span>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.userAccount.birthday" [ngbTooltip]="'course1802753139App.userAccount.help.birthday' | translate">Birthday</span></dt>
+                <dd>
+                    <span>{{ userAccount.birthday }}</span>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.userAccount.login" [ngbTooltip]="'course1802753139App.userAccount.help.login' | translate">Login</span></dt>
+                <dd>
+                    <span>{{ userAccount.login }}</span>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.userAccount.introduction" [ngbTooltip]="'course1802753139App.userAccount.help.introduction' | translate">Introduction</span></dt>
+                <dd>
+                    <span>{{ userAccount.introduction }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/user-account', userAccount.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

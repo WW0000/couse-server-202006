@@ -1,0 +1,97 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="course1802753139App.contentInfo.home.title">Content Infos</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-content-info" [routerLink]="['/content-info/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="course1802753139App.contentInfo.home.createLabel">
+            Create a new Content Info
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="contentInfos?.length === 0">
+        <span jhiTranslate="course1802753139App.contentInfo.home.notFound">No contentInfos found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="contentInfos && contentInfos.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="contentActor"><span jhiTranslate="course1802753139App.contentInfo.contentActor">Content Actor</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="contentInfo"><span jhiTranslate="course1802753139App.contentInfo.contentInfo">Content Info</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="contentImg"><span jhiTranslate="course1802753139App.contentInfo.contentImg">Content Img</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="contentTime"><span jhiTranslate="course1802753139App.contentInfo.contentTime">Content Time</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="contentPraiseCount"><span jhiTranslate="course1802753139App.contentInfo.contentPraiseCount">Content Praise Count</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="contentFavorateCount"><span jhiTranslate="course1802753139App.contentInfo.contentFavorateCount">Content Favorate Count</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="contentCommentCount"><span jhiTranslate="course1802753139App.contentInfo.contentCommentCount">Content Comment Count</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="contentImgLabel"><span jhiTranslate="course1802753139App.contentInfo.contentImgLabel">Content Img Label</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="account.id"><span jhiTranslate="course1802753139App.contentInfo.account">Account</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="contentType.id"><span jhiTranslate="course1802753139App.contentInfo.contentType">Content Type</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let contentInfo of contentInfos ;trackBy: trackId">
+                    <td><a [routerLink]="['/content-info', contentInfo.id, 'view']">{{ contentInfo.id }}</a></td>
+                    <td>{{ contentInfo.contentActor }}</td>
+                    <td>{{ contentInfo.contentInfo }}</td>
+                    <td>{{ contentInfo.contentImg }}</td>
+                    <td>{{ contentInfo.contentTime | date:'medium' }}</td>
+                    <td>{{ contentInfo.contentPraiseCount }}</td>
+                    <td>{{ contentInfo.contentFavorateCount }}</td>
+                    <td>{{ contentInfo.contentCommentCount }}</td>
+                    <td>{{ contentInfo.contentImgLabel }}</td>
+                    <td>
+                        <div *ngIf="contentInfo.account">
+                            <a [routerLink]="['/user-account', contentInfo.account?.id, 'view']" >{{ contentInfo.account?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="contentInfo.contentType">
+                            <a [routerLink]="['/content-type', contentInfo.contentType?.id, 'view']" >{{ contentInfo.contentType?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/content-info', contentInfo.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/content-info', contentInfo.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(contentInfo)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="contentInfos && contentInfos.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+{
+  "name": "UserContentPraise",
+  "fields": [
+    {
+      "fieldName": "praiseTime",
+      "fieldType": "ZonedDateTime",
+      "javadoc": "点赞时间"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "userAccount",
+      "otherEntityRelationshipName": "userContentPraise",
+      "javadoc": "用户点赞",
+      "relationshipName": "account",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "contentInfo",
+      "otherEntityRelationshipName": "userContentPraise",
+      "javadoc": "用户点赞",
+      "relationshipName": "content",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200922025733",
+  "javadoc": "用户点赞",
+  "entityTableName": "user_content_praise",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

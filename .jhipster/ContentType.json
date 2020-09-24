@@ -1,0 +1,38 @@
+{
+  "name": "ContentType",
+  "fields": [
+    {
+      "fieldName": "contentTypeName",
+      "fieldType": "String",
+      "javadoc": "分类名称"
+    },
+    {
+      "fieldName": "contentTypeSort",
+      "fieldType": "Integer",
+      "javadoc": "分类排序"
+    },
+    {
+      "fieldName": "contentTypeTime",
+      "fieldType": "ZonedDateTime",
+      "javadoc": "创建时间"
+    },
+    {
+      "fieldName": "contentTypeUpdateCount",
+      "fieldType": "Long",
+      "javadoc": "近期更新数量"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20200922030033",
+  "javadoc": "内容分类",
+  "entityTableName": "content_type",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

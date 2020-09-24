@@ -1,0 +1,56 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-user-account-heading" jhiTranslate="course1802753139App.userAccount.home.createOrEditLabel">Create or edit a User Account</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.userAccount.head" for="field_head" [ngbTooltip]="'course1802753139App.userAccount.help.head' | translate">Head</label>
+                    <input type="text" class="form-control" name="head" id="field_head"
+                           formControlName="head"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.userAccount.nickName" for="field_nickName" [ngbTooltip]="'course1802753139App.userAccount.help.nickName' | translate">Nick Name</label>
+                    <input type="text" class="form-control" name="nickName" id="field_nickName"
+                           formControlName="nickName"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.userAccount.birthday" for="field_birthday" [ngbTooltip]="'course1802753139App.userAccount.help.birthday' | translate">Birthday</label>
+                    <input type="text" class="form-control" name="birthday" id="field_birthday"
+                           formControlName="birthday"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.userAccount.login" for="field_login" [ngbTooltip]="'course1802753139App.userAccount.help.login' | translate">Login</label>
+                    <input type="text" class="form-control" name="login" id="field_login"
+                           formControlName="login"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="course1802753139App.userAccount.introduction" for="field_introduction" [ngbTooltip]="'course1802753139App.userAccount.help.introduction' | translate">Introduction</label>
+                    <input type="text" class="form-control" name="introduction" id="field_introduction"
+                           formControlName="introduction"/>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

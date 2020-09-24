@@ -1,0 +1,42 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="userFavorateItem">
+            <h2><span jhiTranslate="course1802753139App.userFavorateItem.detail.title">User Favorate Item</span> {{ userFavorateItem.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="course1802753139App.userFavorateItem.favorateTime" [ngbTooltip]="'course1802753139App.userFavorateItem.help.favorateTime' | translate">Favorate Time</span></dt>
+                <dd>
+                    <span>{{ userFavorateItem.favorateTime }}</span>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.userFavorateItem.account">Account</span></dt>
+                <dd>
+                    <div *ngIf="userFavorateItem.account">
+                        <a [routerLink]="['/user-account', userFavorateItem.account?.id, 'view']">{{ userFavorateItem.account?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="course1802753139App.userFavorateItem.content">Content</span></dt>
+                <dd>
+                    <div *ngIf="userFavorateItem.content">
+                        <a [routerLink]="['/content-info', userFavorateItem.content?.id, 'view']">{{ userFavorateItem.content?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/user-favorate-item', userFavorateItem.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

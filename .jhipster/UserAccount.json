@@ -1,0 +1,43 @@
+{
+  "name": "UserAccount",
+  "fields": [
+    {
+      "fieldName": "head",
+      "fieldType": "String",
+      "javadoc": "头像"
+    },
+    {
+      "fieldName": "nickName",
+      "fieldType": "String",
+      "javadoc": "昵称"
+    },
+    {
+      "fieldName": "birthday",
+      "fieldType": "String",
+      "javadoc": "生日"
+    },
+    {
+      "fieldName": "login",
+      "fieldType": "String",
+      "javadoc": "登录名"
+    },
+    {
+      "fieldName": "introduction",
+      "fieldType": "String",
+      "javadoc": "简介"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20200922025333",
+  "javadoc": "账户信息",
+  "entityTableName": "user_account",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}
