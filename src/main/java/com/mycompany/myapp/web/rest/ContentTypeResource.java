@@ -1,7 +1,9 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.domain.ContentInfo;
 import com.mycompany.myapp.domain.ContentType;
 import com.mycompany.myapp.service.ContentTypeService;
+import com.mycompany.myapp.service.impl.ContentInfoServiceImpl;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -39,6 +41,7 @@ public class ContentTypeResource {
     private String applicationName;
 
     private final ContentTypeService contentTypeService;
+    private ContentInfoServiceImpl contentInfoService;
 
     public ContentTypeResource(ContentTypeService contentTypeService) {
         this.contentTypeService = contentTypeService;
@@ -129,5 +132,22 @@ public class ContentTypeResource {
         //返回所有分类
         List<ContentType> result=this.contentTypeService.getAllType();
         return ResponseEntity.ok(result);
+    }
+    /**
+     * 根据关键字、分类查询内容列表
+     *
+     * @param keyword 查询关键字
+     * @param typeName 类型
+     * @param index 起始页
+     * @param size 每页大小
+     *
+     * @return Page<ContentInfo>
+     * */
+    @ApiOperation("根据关键字、分类查询内容列表")
+    @GetMapping("/content-infos/index")
+    public ResponseEntity getIndexContent( String keyword, String typeName,
+                                           Integer index,Integer size){
+        Page<ContentInfo> contentInfos=this.contentInfoService.getContent(keyword,typeName,index,size);
+        return ResponseEntity.ok(contentInfos);
     }
 }

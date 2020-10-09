@@ -2,11 +2,13 @@ package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.domain.UserContentComment;
 import com.mycompany.myapp.service.UserContentCommentService;
+import com.mycompany.myapp.service.dto.CommentTreeItem;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -122,4 +124,12 @@ public class UserContentCommentResource {
         userContentCommentService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+    @ApiOperation(value = "获取评论树")
+    @GetMapping("/user-content-comments/tree/{contentId}")
+    public ResponseEntity getCommentTree(@PathVariable Long contentId){
+        List<CommentTreeItem> result=userContentCommentService.getCommentTree(11L,contentId);
+        return ResponseEntity.ok(result);
+    }
+
 }

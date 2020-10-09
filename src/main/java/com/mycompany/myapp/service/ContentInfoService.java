@@ -43,4 +43,8 @@ public interface ContentInfoService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+    /**
+     * 根据关键字、分类查询内容列表
+     * */
+    Page<ContentInfo> getContent(String keyword,String typeName,Integer index,Integer size);
 }
