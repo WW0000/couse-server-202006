@@ -43,4 +43,5 @@ public interface UserFavorateItemService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+    UserFavorateItem favorite(String login,Long contentId)throws Exception;
 }

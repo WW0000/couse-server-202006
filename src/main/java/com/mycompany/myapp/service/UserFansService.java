@@ -43,4 +43,5 @@ public interface UserFansService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
 }

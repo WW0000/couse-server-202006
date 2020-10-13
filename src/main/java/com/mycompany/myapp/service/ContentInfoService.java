@@ -5,6 +5,7 @@ import com.mycompany.myapp.domain.ContentInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -47,4 +48,8 @@ public interface ContentInfoService {
      * 根据关键字、分类查询内容列表
      * */
     Page<ContentInfo> getContent(String keyword,String typeName,Integer index,Integer size);
+
+    Page<ContentInfo> findMyPraises(Integer index, Integer size,String login);
+
+
 }

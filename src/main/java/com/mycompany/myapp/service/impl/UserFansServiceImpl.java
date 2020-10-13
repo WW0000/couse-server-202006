@@ -1,5 +1,8 @@
 package com.mycompany.myapp.service.impl;
 
+import com.mycompany.myapp.domain.UserAccount;
+import com.mycompany.myapp.domain.UserFavorateItem;
+import com.mycompany.myapp.repository.UserAccountRepository;
 import com.mycompany.myapp.service.UserFansService;
 import com.mycompany.myapp.domain.UserFans;
 import com.mycompany.myapp.repository.UserFansRepository;

@@ -43,4 +43,6 @@ public interface UserContentPraiseService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    UserContentPraise praise(String login,UserContentPraise praise);
 }

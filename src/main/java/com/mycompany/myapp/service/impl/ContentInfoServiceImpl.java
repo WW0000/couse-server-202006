@@ -82,4 +82,10 @@ public class ContentInfoServiceImpl implements ContentInfoService {
         return page;
     }
 
+    @Override
+    public Page<ContentInfo> findMyPraises(Integer index, Integer size,String login) {
+        Pageable pageable= PageRequest.of(index,size);
+        return this.contentInfoRepository.findMyPraise(pageable,"admin");
+    }
+
 }

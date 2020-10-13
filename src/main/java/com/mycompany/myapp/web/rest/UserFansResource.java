@@ -1,12 +1,17 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.domain.UserFans;
+import com.mycompany.myapp.domain.UserFavorateItem;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.UserFansService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

@@ -2,6 +2,7 @@ package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.domain.ContentInfo;
 import com.mycompany.myapp.domain.ContentType;
+import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.ContentInfoService;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 
@@ -123,6 +124,23 @@ public class ContentInfoResource {
         log.debug("REST request to delete ContentInfo : {}", id);
         contentInfoService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    @ApiOperation(value = "获取我的点赞")
+    @GetMapping("/content-infos/praise")
+    public ResponseEntity getMyPraises(Integer index, Integer size) {
+        log.debug("REST request to get my praise ContentInfos");
+
+        Optional<String> loginOptional= SecurityUtils.getCurrentUserLogin();
+        if(!loginOptional.isPresent()){
+            return ResponseEntity.badRequest().body("未登录");
+        }
+        String login=loginOptional.get();
+
+        Page<ContentInfo> page = contentInfoService.findMyPraises(index,size,login);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.
+            fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
 }

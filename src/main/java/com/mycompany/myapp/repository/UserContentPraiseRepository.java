@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface UserContentPraiseRepository extends JpaRepository<UserContentPraise, Long> {
+    UserContentPraise findByContentIdAndAccountLogin(Long contentId,String login);
 }

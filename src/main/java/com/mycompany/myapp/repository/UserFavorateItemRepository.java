@@ -11,4 +11,8 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface UserFavorateItemRepository extends JpaRepository<UserFavorateItem, Long> {
+
+
+    UserFavorateItem findByContentIdAndAccountLogin(Long contentId,String login);
+
 }
