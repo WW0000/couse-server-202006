@@ -179,7 +179,7 @@ public class ContentInfoResourceIT {
             .andExpect(jsonPath("$.[*].contentCommentCount").value(hasItem(DEFAULT_CONTENT_COMMENT_COUNT.intValue())))
             .andExpect(jsonPath("$.[*].contentImgLabel").value(hasItem(DEFAULT_CONTENT_IMG_LABEL)));
     }
-    
+
     @Test
     @Transactional
     public void getContentInfo() throws Exception {
@@ -212,7 +212,7 @@ public class ContentInfoResourceIT {
     @Transactional
     public void updateContentInfo() throws Exception {
         // Initialize the database
-        contentInfoService.save(contentInfo);
+        contentInfoService.save("",contentInfo);
 
         int databaseSizeBeforeUpdate = contentInfoRepository.findAll().size();
 
@@ -269,7 +269,7 @@ public class ContentInfoResourceIT {
     @Transactional
     public void deleteContentInfo() throws Exception {
         // Initialize the database
-        contentInfoService.save(contentInfo);
+        contentInfoService.save("",contentInfo);
 
         int databaseSizeBeforeDelete = contentInfoRepository.findAll().size();
 

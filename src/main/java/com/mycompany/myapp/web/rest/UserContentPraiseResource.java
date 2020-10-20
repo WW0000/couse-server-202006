@@ -118,22 +118,41 @@ public class UserContentPraiseResource {
      * @param id the id of the userContentPraise to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+    @ApiOperation("取消点赞")
     @DeleteMapping("/user-content-praises/{id}")
-    public ResponseEntity<Void> deleteUserContentPraise(@PathVariable Long id) {
+    public ResponseEntity deleteUserContentPraise(@PathVariable Long id) {
         log.debug("REST request to delete UserContentPraise : {}", id);
-        userContentPraiseService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+        Optional<String> loginOptional=SecurityUtils.getCurrentUserLogin();
+        if (!loginOptional.isPresent()){
+            return ResponseEntity.badRequest().body("未登录，无权使用API");
+        }
+        String login=loginOptional.get();
+        try {
+            userContentPraiseService.delete(login,id);
+            return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
     }
 
     @ApiOperation("提交点赞")
-    @PostMapping("/user-content-praises/praise")
-    public ResponseEntity praises(@RequestBody UserContentPraise userContentPraise) {
-        Optional<String> loginOptional = SecurityUtils.getCurrentUserLogin();
-        if (!loginOptional.isPresent()) {
+    @PostMapping("/user-content-praise/praise")
+    public ResponseEntity praise(@RequestBody UserContentPraise userContentPraise){
+
+        Optional<String> loginOptional= SecurityUtils.getCurrentUserLogin();
+        if(!loginOptional.isPresent()){
             return ResponseEntity.badRequest().body("未登录");
+
         }
-        String login = loginOptional.get();
-        userContentPraise = this.userContentPraiseService.praise(login, userContentPraise);
-        return ResponseEntity.ok(userContentPraise);
+        String login=loginOptional.get();
+        userContentPraise=this.userContentPraiseService.praise(login,userContentPraise);
+        return  ResponseEntity.ok(userContentPraise);
     }
+
+
+
 }
+
+

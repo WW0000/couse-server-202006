@@ -120,4 +120,4 @@ jhipster:
 
 # application:
 file:
-  diskpath: E:\\file\\
+  diskpath: /D:/fileupload/

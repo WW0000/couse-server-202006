@@ -4,9 +4,9 @@ import com.mycompany.myapp.domain.ContentInfo;
 
 import com.mycompany.myapp.domain.ContentType;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,49 +17,19 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface ContentInfoRepository extends JpaRepository<ContentInfo, Long> {
-    /**
-     * 根据类型 模糊查询：内容
-     * 有分页
-     * */
-    Page<ContentInfo> findAllByContentInfoLikeAndContentTypeContentTypeName(Pageable pageable, String contentInfoLike, String contentType);
-    //有分页 有模糊 无类型
-    Page<ContentInfo> findAllByContentInfoLike(Pageable pageable, String contentInfoLike);
-    //有分页 无模糊 有类型
-    Page<ContentInfo> findAllByContentTypeContentTypeName(Pageable pageable,String typeName);
-    //无分页 有模糊 有类型
-    List<ContentInfo> findByContentInfoLikeAndContentTypeContentTypeName(String contentInfoLike,String contentType);
+    Page<ContentInfo> findByContentTypeContentTypeName(String name, Pageable page);
+    Page<ContentInfo> findByContentInfoLike(String keyword, Pageable page);
+    Page<ContentInfo> findByContentInfoLikeAndContentTypeContentTypeName(String keyword, String typeName, Pageable page);
 
-
-    /**
-     * 获取当前登录账户已关注的内容列表
-     * */
-    @Query("select ci from ContentInfo ci,UserFans uf where uf.fansFrom.login=:login and ci.account.login=uf.fansTo.login and ci.contentInfo like :keyword")
-    Page<ContentInfo> findMyFansContent(Pageable pageable, @Param("login") String login, @Param("keyword") String keyword);
-    @Query("select ci from ContentInfo ci,UserFans uf where uf.fansFrom.login=:login and ci.account.login=uf.fansTo.login  ")
-    Page<ContentInfo> findMyFansContent(Pageable pageable,@Param("login") String login);
-
-    /**
-     * 获取我的点赞列表
-     * */
-    @Query("select ucp.content from UserContentPraise ucp where ucp.account.login=:login")
-    Page<ContentInfo> findMyPraise(Pageable pageable,@Param("login")String login);
-
-    /**
-     * 获取我的收藏列表
-     * */
-    @Query("select uf.content from UserFavorateItem uf where uf.account.login=:login")
-    Page<ContentInfo> findMyFavourate(Pageable pageable,@Param("login")String login);
-
-    /**
-     * 我发布的内容列表
-     * */
-    Page<ContentInfo> findAllByAccount_Login(Pageable pageable,String login);
-
-    /**
-     * 删除我发布的内容
-     * */
-    Boolean deleteContentInfoByIdAndAccount_Login(Long id, String login);
-
-    Page<ContentInfo> findAllByAccount_Id(Pageable pageable,Long id);
+    @Query(value = "select a from ContentInfo a where a.contentInfo like ?1 and ('ALL'=?2 or a.contentType.contentTypeName = ?2)")
+    Page<ContentInfo> getAllContent(String keyword, String typeName, Pageable page);
+    @Query(value = "select a from ContentInfo a,UserFans b where a.account.id=b.fansTo.id and b.fansFrom.login=?1 and a.contentInfo like ?2")
+    Page<ContentInfo> getSubContent(String login, String keywords,Pageable pageable);
+    @Query(value = "select a from ContentInfo a,UserContentPraise b where a.id=b.content.id and b.account.login=?1")
+    Page<ContentInfo> getMyPraise(String login,Pageable pageable);
+    @Query(value = "select a from ContentInfo a,UserFavorateItem b where a.id=b.content.id and b.account.login=?1")
+    Page<ContentInfo> getMyFavorate(String login,Pageable pageable);
+    Page<ContentInfo> findByAccountLogin(String login,Pageable pageable);
+    Page<ContentInfo> findById(Long accountId,Pageable pageable);
 
 }

@@ -136,4 +136,4 @@ jhipster:
 
 # application:
 file:
-  dispath: /home/fileupload/
+  diskpath: /D:/fileupload/

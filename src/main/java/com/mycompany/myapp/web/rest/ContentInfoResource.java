@@ -9,7 +9,10 @@ import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import liquibase.pro.packaged.S;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,7 +62,7 @@ public class ContentInfoResource {
         if (contentInfo.getId() != null) {
             throw new BadRequestAlertException("A new contentInfo cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ContentInfo result = contentInfoService.save(contentInfo);
+        ContentInfo result = contentInfoService.save("",contentInfo);
         return ResponseEntity.created(new URI("/api/content-infos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -80,7 +83,7 @@ public class ContentInfoResource {
         if (contentInfo.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        ContentInfo result = contentInfoService.save(contentInfo);
+        ContentInfo result = contentInfoService.save("",contentInfo);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, contentInfo.getId().toString()))
             .body(result);
@@ -119,28 +122,148 @@ public class ContentInfoResource {
      * @param id the id of the contentInfo to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+    @ApiOperation("删除我发布的内容，支持分页")
     @DeleteMapping("/content-infos/{id}")
-    public ResponseEntity<Void> deleteContentInfo(@PathVariable Long id) {
+    public ResponseEntity deleteContentInfo(@PathVariable Long id) {
         log.debug("REST request to delete ContentInfo : {}", id);
-        contentInfoService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+        Optional<String> loginOptional=SecurityUtils.getCurrentUserLogin();
+        if(!loginOptional.isPresent()){
+            return ResponseEntity.badRequest().body("未登录,无权使用API");
+        }
+        String login=loginOptional.get();
+        try {
+            contentInfoService.delete(login,id);
+            return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
-    @ApiOperation(value = "获取我的点赞")
-    @GetMapping("/content-infos/praise")
-    public ResponseEntity getMyPraises(Integer index, Integer size) {
-        log.debug("REST request to get my praise ContentInfos");
+    @ApiOperation(value = "根据分类获取发布的内容")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "typeName",value = "分类名称,传空值表示取全部"),
+        @ApiImplicitParam(name = "index",value = "分页页码，起始页为0"),
+        @ApiImplicitParam(name = "size",value = "分页页长，默认为10")
+    })
 
+    @GetMapping("/content-infos/typename")
+    public ResponseEntity getContentByType(
+        @RequestParam String typeName,
+        @RequestParam(required = false,defaultValue = "0") Integer index,
+        @RequestParam(required = false,defaultValue = "10")  Integer size){
+
+        Page<ContentInfo> result=
+            this.contentInfoService
+                .getContentByTypeName(typeName,index,size);
+        return ResponseEntity.ok(result);
+    }
+
+    @ApiOperation(value = "根据关键字、分类查询内容列表")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "keyword",value = "关键字"),
+        @ApiImplicitParam(name = "typeName",value = "分类名称"),
+        @ApiImplicitParam(name = "index",value = "页码"),
+        @ApiImplicitParam(name = "size",value = "页长")
+    })
+
+    @GetMapping("/content-infos/index")
+    public ResponseEntity getIndexContent(
+        @RequestParam(required = false,defaultValue = "") String keyword,
+        @RequestParam(required = false,defaultValue = "ALL") String typeName,
+        @RequestParam(required = false,defaultValue = "0") Integer index,
+        @RequestParam(required = false,defaultValue = "10") Integer size
+    ){
+        Page<ContentInfo> result = this.contentInfoService.getAllContent(keyword,typeName,index,size);
+        return ResponseEntity.ok(result);
+    }
+
+    @ApiOperation(value = "获取当前登录账户已关注的内容列表，支持分页")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "keyword",value = "关键字"),
+        @ApiImplicitParam(name = "index",value = "页码"),
+        @ApiImplicitParam(name = "size",value = "页长")
+    })
+    @GetMapping("/content-infos/fans")
+    public ResponseEntity getSubContent(
+        @RequestParam(required = false,defaultValue = "") String keywords,
+        @RequestParam(required = false,defaultValue = "0") Integer index,
+        @RequestParam(required = false,defaultValue = "10") Integer size
+    ){
+            Optional<String> loginOptional= SecurityUtils.getCurrentUserLogin();
+            if(!loginOptional.isPresent()){
+                return ResponseEntity.badRequest().body("未登录");
+
+            }
+            String login=loginOptional.get();
+            Page<ContentInfo> result=this.contentInfoService.getSubContent(login,keywords,index,size);
+            return ResponseEntity.ok(result);
+    }
+
+    @ApiOperation(value = "我的点赞列表，支持分页")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "index",value = "页码"),
+        @ApiImplicitParam(name = "size",value = "页长")
+    })
+    @GetMapping("/content-infos/praises/")
+    public ResponseEntity myPraise(
+        @RequestParam(required = false,defaultValue = "0") Integer index,
+        @RequestParam(required = false,defaultValue = "10") Integer size
+    ){
         Optional<String> loginOptional= SecurityUtils.getCurrentUserLogin();
         if(!loginOptional.isPresent()){
             return ResponseEntity.badRequest().body("未登录");
+
         }
         String login=loginOptional.get();
-
-        Page<ContentInfo> page = contentInfoService.findMyPraises(index,size,login);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.
-            fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        Page<ContentInfo> result=this.contentInfoService.myPraise(login,index,size);
+        return ResponseEntity.ok(result);
     }
 
+    @ApiOperation(value = "我的收藏列表，支持分页")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "index",value = "页码"),
+        @ApiImplicitParam(name = "size",value = "页长")
+    })
+    @GetMapping("/content-infos/favorate/")
+    public ResponseEntity myFavorate(
+        @RequestParam(required = false,defaultValue = "0") Integer index,
+        @RequestParam(required = false,defaultValue = "10") Integer size
+    ){
+        Optional<String> loginOptional= SecurityUtils.getCurrentUserLogin();
+        if(!loginOptional.isPresent()){
+            return ResponseEntity.badRequest().body("未登录");
+
+        }
+        String login=loginOptional.get();
+        Page<ContentInfo> result=this.contentInfoService.myFavorate(login,index,size);
+        return ResponseEntity.ok(result);
+    }
+
+    @ApiOperation(value = "我发布的内容列表，支持分页")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "index",value = "页码"),
+        @ApiImplicitParam(name = "size",value = "页长")
+    })
+    @GetMapping("/content-infos/mine")
+    public ResponseEntity getMyContent(
+        @RequestParam(required = false,defaultValue = "0") Integer index,
+        @RequestParam(required = false,defaultValue = "10") Integer size
+    ){
+        Optional<String> loginOptional= SecurityUtils.getCurrentUserLogin();
+        if(!loginOptional.isPresent()){
+            return ResponseEntity.badRequest().body("未登录");
+
+        }
+        String login=loginOptional.get();
+        Page<ContentInfo> result=this.contentInfoService.myContent(login,index,size);
+        return  ResponseEntity.ok(result);
+
+    }
+
+
+
 }
+
+
+

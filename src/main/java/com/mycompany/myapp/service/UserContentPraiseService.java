@@ -42,7 +42,7 @@ public interface UserContentPraiseService {
      *
      * @param id the id of the entity.
      */
-    void delete(Long id);
+    void delete(String login,Long id) throws Exception;
 
     UserContentPraise praise(String login,UserContentPraise praise);
 }

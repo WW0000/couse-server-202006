@@ -122,4 +122,5 @@ public class UserAccountResource {
         userAccountService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
 }

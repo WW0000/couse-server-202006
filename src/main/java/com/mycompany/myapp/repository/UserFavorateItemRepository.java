@@ -1,5 +1,6 @@
 package com.mycompany.myapp.repository;
 
+import com.mycompany.myapp.domain.UserContentPraise;
 import com.mycompany.myapp.domain.UserFavorateItem;
 
 import org.springframework.data.jpa.repository.*;
@@ -11,8 +12,5 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface UserFavorateItemRepository extends JpaRepository<UserFavorateItem, Long> {
-
-
-    UserFavorateItem findByContentIdAndAccountLogin(Long contentId,String login);
-
+    UserFavorateItem findByContentIdAndAccountLogin(Long contentId, String login);
 }

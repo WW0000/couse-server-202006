@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -124,12 +125,19 @@ public class UserContentCommentResource {
         userContentCommentService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
-
-    @ApiOperation(value = "获取评论树")
+    @ApiOperation(value = "获取评论数")
     @GetMapping("/user-content-comments/tree/{contentId}")
     public ResponseEntity getCommentTree(@PathVariable Long contentId){
         List<CommentTreeItem> result=userContentCommentService.getCommentTree(11L,contentId);
         return ResponseEntity.ok(result);
     }
-
+    @ApiOperation(value = "发表评论")
+    @PostMapping("/user-content-comments/add/{contentId}/{parentId}/{comment}")
+    public ResponseEntity addComment(@PathVariable Long contentId,@PathVariable Long parentId,@PathVariable String comment){
+        List<String> addcomment=new ArrayList<>();
+        addcomment.add(contentId.toString());
+        addcomment.add(parentId.toString());
+        addcomment.add(comment);
+        return ResponseEntity.ok(addcomment);
+    }
 }

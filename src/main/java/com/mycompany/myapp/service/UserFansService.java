@@ -1,5 +1,6 @@
 package com.mycompany.myapp.service;
 
+import com.mycompany.myapp.domain.UserAccount;
 import com.mycompany.myapp.domain.UserFans;
 
 import org.springframework.data.domain.Page;
@@ -42,6 +43,10 @@ public interface UserFansService {
      *
      * @param id the id of the entity.
      */
-    void delete(Long id);
+    void delete(String login,Long id) throws  Exception;
 
+    UserFans addFans(String login,Long toUserId) throws Exception;
+
+    Page<UserAccount> getMyFansTo(String login, Integer index, Integer size);
+    Page<UserAccount> getMyFansFrom(String login, Integer index, Integer size);
 }

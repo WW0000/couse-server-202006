@@ -1,5 +1,6 @@
 package com.mycompany.myapp.service;
 
+import com.mycompany.myapp.domain.UserContentPraise;
 import com.mycompany.myapp.domain.UserFavorateItem;
 
 import org.springframework.data.domain.Page;
@@ -42,6 +43,8 @@ public interface UserFavorateItemService {
      *
      * @param id the id of the entity.
      */
-    void delete(Long id);
-    UserFavorateItem favorite(String login,Long contentId)throws Exception;
+    void delete(String login,Long id) throws Exception;
+
+    UserFavorateItem favorate(String login,Long contentId) throws Exception;
+
 }

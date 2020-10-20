@@ -45,5 +45,6 @@ public interface UserContentCommentService {
      * @param id the id of the entity.
      */
     void delete(Long id);
-    List<CommentTreeItem> getCommentTree(Long pid,Long contentId);
+
+    List<CommentTreeItem> getCommentTree(Long pid, Long contentId);
 }

@@ -1,5 +1,6 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.domain.UserContentPraise;
 import com.mycompany.myapp.domain.UserFavorateItem;
 import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.UserFavorateItemService;
@@ -9,7 +10,6 @@ import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -120,32 +120,43 @@ public class UserFavorateItemResource {
      * @param id the id of the userFavorateItem to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+    @ApiOperation("删除收藏")
     @DeleteMapping("/user-favorate-items/{id}")
-    public ResponseEntity<Void> deleteUserFavorateItem(@PathVariable Long id) {
+    public ResponseEntity deleteUserFavorateItem(@PathVariable Long id) {
         log.debug("REST request to delete UserFavorateItem : {}", id);
-        userFavorateItemService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
-    }
-
-    @ApiOperation("添加收藏")
-    @ApiImplicitParam(name="contentId",value="内容Id")
-    @PostMapping("/user-favorate-items/favorite")
-    public ResponseEntity favirate(Long contentId){
-        Optional<String> loginOptional= SecurityUtils.getCurrentUserLogin();
-        if(!loginOptional.isPresent())
-        {
+        Optional<String> loginOptional=SecurityUtils.getCurrentUserLogin();
+        if (!loginOptional.isPresent()){
             return ResponseEntity.badRequest().body("未登录，无权使用API");
+        }
+        String login=loginOptional.get();
+
+        try {
+            userFavorateItemService.delete(login,id);
+            return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @ApiOperation("添加收藏")
+    @ApiImplicitParam(name="contentId",value="内容ID")
+    @PostMapping("/user-favorate-items/favorate")
+    public ResponseEntity favorate(Long contentId){
+
+        Optional<String> loginOptional= SecurityUtils.getCurrentUserLogin();
+        if(!loginOptional.isPresent()){
+            return ResponseEntity.badRequest().body("未登录");
         }
         String login=loginOptional.get();
         UserFavorateItem result= null;
         try {
-            result = this.userFavorateItemService.favorite(login,contentId);
-            return ResponseEntity.ok(result);
+            result = this.userFavorateItemService.favorate(login,contentId);
+            return  ResponseEntity.ok(result);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
     }
-
 }

@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface UserFansRepository extends JpaRepository<UserFans, Long> {
+    UserFans findByFansFromLoginAndFansToId(String login,Long toUserId);
 }

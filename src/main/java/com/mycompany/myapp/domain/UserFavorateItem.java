@@ -93,6 +93,9 @@ public class UserFavorateItem implements Serializable {
         return this;
     }
 
+    public void setContent(ContentInfo contentInfo) {
+        this.content = contentInfo;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -118,8 +121,5 @@ public class UserFavorateItem implements Serializable {
             "id=" + getId() +
             ", favorateTime='" + getFavorateTime() + "'" +
             "}";
-    }
-
-    public void setContent(ContentInfo contentInfo) {
     }
 }
